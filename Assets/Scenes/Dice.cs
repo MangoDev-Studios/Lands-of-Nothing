@@ -10,6 +10,8 @@ public class Dice : MonoBehaviour {
     // Reference to sprite renderer to change sprites
     private SpriteRenderer rend;
 
+    private HexMan manager;
+
 	// Use this for initialization
 	private void Start () {
 
@@ -18,6 +20,8 @@ public class Dice : MonoBehaviour {
 
         // Load dice sides sprites to array from DiceSides subfolder of Resources folder
         diceSides = Resources.LoadAll<Sprite>("DiceSides/");
+
+        manager = FindObjectOfType<HexMan>();
 	}
 	
     // If you left click over the dice then RollTheDice coroutine is started
@@ -57,5 +61,6 @@ public class Dice : MonoBehaviour {
         // Show final dice value in Console
         Debug.Log(finalSide);
        
+        manager.ReceiveDiceValue(finalSide);
     }
 }
