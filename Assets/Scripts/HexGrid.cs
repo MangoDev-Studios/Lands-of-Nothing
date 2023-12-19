@@ -13,7 +13,6 @@ public class HexGrid : MonoBehaviour
         {
             hexTileDict[hex.HexCoords] = hex;
         }
-
     }
 
     public Hex GetTileAt(Vector3Int hexCoordinates)
@@ -46,6 +45,27 @@ public class HexGrid : MonoBehaviour
 
     public static class Direction
     {
-        
+        public static List<Vector3Int> directionOffsetOdd = new List<Vector3Int>
+        {
+            new Vector3Int(-1,1, 0),
+            new Vector3Int(0,1,0),
+            new Vector3Int(0,-1,0),
+            new Vector3Int(-1, -1, 0),
+            new Vector3Int(-1,0,0)
+        };
+        public static List<Vector3Int> directionOffsetEven = new List<Vector3Int>
+        {
+            new Vector3Int(0,1,0),
+            new Vector3Int(1,1, 0),
+            new Vector3Int(1,0,0),
+            new Vector3Int(1,-1,0),
+            new Vector3Int(0,-1,0),
+            new Vector3Int(-1,0, 0)
+            
+        };
+    public static List<Vector3Int> GetDirectionList(int y)
+        => y % 2 == 0 ? directionOffsetEven : directionOffsetOdd;
     }
+
+
 }
