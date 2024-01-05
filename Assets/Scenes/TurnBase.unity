@@ -199,11 +199,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1215850908}
   m_SourcePrefab: {fileID: 100100000, guid: 04901f1257ad42f4cb5e5d5400423248, type: 3}
-<<<<<<< Updated upstream
---- !u!1 &201927546
-=======
 --- !u!1 &116003183
->>>>>>> Stashed changes
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,25 +207,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< Updated upstream
-  - component: {fileID: 201927548}
-  - component: {fileID: 201927547}
-  m_Layer: 0
-  m_Name: Background
-=======
   - component: {fileID: 116003184}
   - component: {fileID: 116003185}
   m_Layer: 0
   m_Name: Terreno_Seca (6)
->>>>>>> Stashed changes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< Updated upstream
---- !u!212 &201927547
-=======
 --- !u!4 &116003184
 Transform:
   m_ObjectHideFlags: 0
@@ -246,17 +232,12 @@ Transform:
   m_Father: {fileID: 1735705062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &116003185
->>>>>>> Stashed changes
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
-  m_GameObject: {fileID: 201927546}
-=======
   m_GameObject: {fileID: 116003183}
->>>>>>> Stashed changes
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -291,43 +272,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-<<<<<<< Updated upstream
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: 212eba50be20d614283218c9f4aab8ce, type: 3}
->>>>>>> Stashed changes
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-<<<<<<< Updated upstream
-  m_Size: {x: 1, y: 1}
-=======
   m_Size: {x: 6.38, y: 5.58}
->>>>>>> Stashed changes
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< Updated upstream
---- !u!4 &201927548
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 201927546}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 50, y: 50, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> Stashed changes
 --- !u!1 &256012151 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3526042264070234485, guid: 04901f1257ad42f4cb5e5d5400423248, type: 3}
@@ -427,8 +382,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1435803965}
   m_SourcePrefab: {fileID: 100100000, guid: 04901f1257ad42f4cb5e5d5400423248, type: 3}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &338267653
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +718,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
->>>>>>> Stashed changes
 --- !u!1 &436518539 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3526042264070234485, guid: 04901f1257ad42f4cb5e5d5400423248, type: 3}
@@ -1082,8 +1034,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 436518541}
   m_SourcePrefab: {fileID: 100100000, guid: 04901f1257ad42f4cb5e5d5400423248, type: 3}
-<<<<<<< Updated upstream
-=======
 --- !u!1 &684453974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1336,7 +1286,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> Stashed changes
 --- !u!1 &812608678 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3526042264070234485, guid: 04901f1257ad42f4cb5e5d5400423248, type: 3}
