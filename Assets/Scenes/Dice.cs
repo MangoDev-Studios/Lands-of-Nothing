@@ -16,14 +16,11 @@ public class Dice : MonoBehaviour
         playerOrderManager = FindObjectOfType<PlayerOrderManager>();
     }
 
-    private void Update()
+    private void OnMouseDown()
     {
-        if (Input.GetMouseButtonDown(0) && !isRolling)
-        {
-            StartCoroutine(RollTheDice());
+            StartCoroutine("RollTheDice");
             Debug.Log("Update Count: " + count);
             count++;
-        }
     }
 
     private IEnumerator RollTheDice()
