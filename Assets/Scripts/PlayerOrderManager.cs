@@ -1,45 +1,44 @@
 using UnityEngine;
+using System;
 
 public class PlayerOrderManager : MonoBehaviour
 {
-    private int[] accumulatedRolls = new int[4];
-    private bool playerOrderDetermined = false;
-    private int currentPlayerIndex = 0;
+    private struct PlayerRoll
+    {
+        public int playerId;
+        public int rollValue;
+    }
 
-    public void RecordDiceRoll(int rollResult)
-    { 
+    private PlayerRoll[] playerRolls = new PlayerRoll[4];
+    private bool playerOrderDetermined = false;
+
+    public void RecordDiceRoll(int playerId, int rollResult)
+    {
         if (!playerOrderDetermined)
         {
-            accumulatedRolls[currentPlayerIndex] += rollResult;
+            playerRolls[playerId].playerId = playerId;
+            playerRolls[playerId].rollValue += rollResult;
 
-            Debug.Log("Player " + currentPlayerIndex + " rolled: " + rollResult);
+            Debug.Log("Player " + playerId + " rolled: " + rollResult);
 
-            currentPlayerIndex++;
-
-            if (currentPlayerIndex == 4)
+            if (Array.TrueForAll(playerRolls, p => p.rollValue > 0))
             {
                 DetermineStartingOrder();
             }
         }
         else
         {
-            Debug.Log("Player " + currentPlayerIndex + " accumulated roll: " + accumulatedRolls[currentPlayerIndex]);
-
-            // Move to the next player
-            currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+            Debug.Log("Player " + playerId + " accumulated roll: " + playerRolls[playerId].rollValue);
         }
     }
 
-
-    // Precisa de ordenar plyer id e n o valor retornado do dice
     private void DetermineStartingOrder()
     {
         if (!playerOrderDetermined)
         {
-            System.Array.Sort(accumulatedRolls);
-            System.Array.Reverse(accumulatedRolls);
+            Array.Sort(playerRolls, (p1, p2) => p2.rollValue.CompareTo(p1.rollValue));
 
-            Debug.Log("Player order: " + string.Join(", ", accumulatedRolls));
+            Debug.Log("Player order: " + string.Join(", ", Array.ConvertAll(playerRolls, p => p.playerId)));
 
             playerOrderDetermined = true;
         }
