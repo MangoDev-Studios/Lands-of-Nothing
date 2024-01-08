@@ -7,7 +7,6 @@ public class Dice : MonoBehaviour
     private SpriteRenderer rend;
     private PlayerOrderManager playerOrderManager;
     private bool isRolling = false;
-    private int count = 0;
 
     private void Start()
     {
@@ -20,15 +19,15 @@ public class Dice : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isRolling)
         {
+            Debug.Log("Entrou: " + isRolling);
+            isRolling = true;
             StartCoroutine(RollTheDice());
-            Debug.Log("Update Count: " + count);
-            count++;
         }
     }
 
     private IEnumerator RollTheDice()
     {
-        isRolling = true;
+        Debug.Log("RollDice: " + isRolling);
 
         int randomDiceSide = 0;
         int finalSide = 0;
@@ -42,9 +41,6 @@ public class Dice : MonoBehaviour
 
         finalSide = randomDiceSide + 1;
         Debug.Log("Final Dice Value: " + finalSide);
-
-        // Pass the dice value to the PlayerOrderManager for recording
-        playerOrderManager.RecordDiceRoll(finalSide);
 
         isRolling = false;
     }
