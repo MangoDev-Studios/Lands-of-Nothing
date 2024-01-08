@@ -17,18 +17,7 @@ public class Dice : MonoBehaviour
 
     private void OnMouseDown()
     {
-<<<<<<< HEAD
-        if (Input.GetMouseButtonDown(0) && !isRolling)
-        {
-            Debug.Log("Entrou: " + isRolling);
-            isRolling = true;
-            StartCoroutine(RollTheDice());
-        }
-=======
             StartCoroutine("RollTheDice");
-            Debug.Log("Update Count: " + count);
-            count++;
->>>>>>> 4749805db1714ad591d746478e7504061a705106
     }
 
     private IEnumerator RollTheDice()
