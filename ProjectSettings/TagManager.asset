@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player1
-  - Player2
+  - Character_1
+  - Character_2
+  - Character_3
+  - Character_4
   layers:
   - Default
   - TransparentFX
