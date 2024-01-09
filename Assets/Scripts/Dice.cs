@@ -21,7 +21,7 @@ public class Dice : MonoBehaviour
         StartCoroutine("RollTheDice");
     }
 
-private IEnumerator RollTheDice()
+    private IEnumerator RollTheDice()
 {
     if (!isRolling)
     {
@@ -42,14 +42,18 @@ private IEnumerator RollTheDice()
         finalSide = randomDiceSide + 1;
         Debug.Log("Final Dice Value: " + finalSide);
 
+        // Pass the current player ID to the RecordDiceRoll method
         playerOrderManager.RecordDiceRoll(currentPlayerId, finalSide);
 
+        // Increment the player ID for the next player
         currentPlayerId = (currentPlayerId + 1) % 4;
 
+        // Log the current player's turn using the PlayerOrderManager
         int currentTurn = playerOrderManager.GetCurrentPlayerTurn();
         Debug.Log("Current Player Turn: " + currentTurn);
 
         isRolling = false;
     }
 }
+
 }

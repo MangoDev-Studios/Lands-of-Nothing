@@ -133,9 +133,10 @@ GameObject:
   m_Component:
   - component: {fileID: 87542346}
   - component: {fileID: 87542347}
+  - component: {fileID: 87542348}
   m_Layer: 0
   m_Name: Character_2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,6 +208,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &87542348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87542345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &338267653
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,9 +587,10 @@ GameObject:
   m_Component:
   - component: {fileID: 689203800}
   - component: {fileID: 689203801}
+  - component: {fileID: 689203802}
   m_Layer: 0
   m_Name: Character_3
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -648,6 +662,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &689203802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689203799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &711196796
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,9 +684,10 @@ GameObject:
   m_Component:
   - component: {fileID: 711196798}
   - component: {fileID: 711196797}
+  - component: {fileID: 711196799}
   m_Layer: 0
   m_Name: Character_1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,6 +759,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1564918896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &711196799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711196796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &723286283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3825116276351296604, guid: 7e14dc7c6876ca24086c7b8120c51969, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3825116276351296604, guid: 7e14dc7c6876ca24086c7b8120c51969, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1907,9 +1946,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2029784164}
   - component: {fileID: 2029784165}
+  - component: {fileID: 2029784166}
   m_Layer: 0
   m_Name: Character_4
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1981,6 +2021,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2029784166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029784163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2074606918
 GameObject:
   m_ObjectHideFlags: 0
