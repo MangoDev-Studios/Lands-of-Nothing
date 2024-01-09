@@ -21,32 +21,35 @@ public class Dice : MonoBehaviour
         StartCoroutine("RollTheDice");
     }
 
-    private IEnumerator RollTheDice()
+private IEnumerator RollTheDice()
+{
+    if (!isRolling)
     {
-        if (!isRolling)
+        isRolling = true;
+
+        Debug.Log("RollDice: " + isRolling);
+
+        int randomDiceSide = 0;
+        int finalSide = 0;
+
+        for (int i = 0; i <= 20; i++)
         {
-            isRolling = true;
-
-            Debug.Log("RollDice: " + isRolling);
-
-            int randomDiceSide = 0;
-            int finalSide = 0;
-
-            for (int i = 0; i <= 20; i++)
-            {
-                randomDiceSide = Random.Range(0, 5);
-                rend.sprite = diceSides[randomDiceSide];
-                yield return new WaitForSeconds(0.05f);
-            }
-
-            finalSide = randomDiceSide + 1;
-            Debug.Log("Final Dice Value: " + finalSide);
-
-            playerOrderManager.RecordDiceRoll(currentPlayerId, finalSide);
-
-            currentPlayerId = (currentPlayerId + 1) % 4;
-
-            isRolling = false;
+            randomDiceSide = Random.Range(0, 5);
+            rend.sprite = diceSides[randomDiceSide];
+            yield return new WaitForSeconds(0.05f);
         }
+
+        finalSide = randomDiceSide + 1;
+        Debug.Log("Final Dice Value: " + finalSide);
+
+        playerOrderManager.RecordDiceRoll(currentPlayerId, finalSide);
+
+        currentPlayerId = (currentPlayerId + 1) % 4;
+
+        int currentTurn = playerOrderManager.GetCurrentPlayerTurn();
+        Debug.Log("Current Player Turn: " + currentTurn);
+
+        isRolling = false;
     }
+}
 }
