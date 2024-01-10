@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class Dice : MonoBehaviour
@@ -42,13 +42,10 @@ public class Dice : MonoBehaviour
         finalSide = randomDiceSide + 1;
         Debug.Log("Final Dice Value: " + finalSide);
 
-        // Pass the current player ID to the RecordDiceRoll method
         playerOrderManager.RecordDiceRoll(currentPlayerId, finalSide);
 
-        // Increment the player ID for the next player
         currentPlayerId = (currentPlayerId + 1) % 4;
 
-        // Log the current player's turn using the PlayerOrderManager
         int currentTurn = playerOrderManager.GetCurrentPlayerTurn();
         Debug.Log("Current Player Turn: " + currentTurn);
 
