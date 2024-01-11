@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
-    Dictionary<Vector3Int, Hex> hexTileDict =  new Dictionary<Vector3Int, Hex>();
-    Dictionary<Vector3Int, List<Vector3Int>> hexTileNeighoursDict = new Dictionary<Vector3Int, List<Vector3Int>>();
+    Dictionary<Vector3Int, Hex> hexTileDict = new Dictionary<Vector3Int, Hex>();
+    Dictionary<Vector3Int, List<Vector3Int>> hexTileNeighboursDict = new Dictionary<Vector3Int, List<Vector3Int>>();
 
     private void Start()
     {
@@ -27,19 +27,48 @@ public class HexGrid : MonoBehaviour
         if (hexTileDict.ContainsKey(hexCoordinates) == false)
             return new List<Vector3Int>();
 
-        if (hexTileNeighoursDict.ContainsKey(hexCoordinates))
-            return hexTileNeighoursDict[hexCoordinates];
-        
-        hexTileNeighoursDict.Add(hexCoordinates, new List<Vector3Int>());
+        if (hexTileNeighboursDict.ContainsKey(hexCoordinates))
+            return hexTileNeighboursDict[hexCoordinates];
+
+        hexTileNeighboursDict.Add(hexCoordinates, new List<Vector3Int>());
 
         foreach (Vector3Int direction in Direction.GetDirectionList(hexCoordinates.y))
         {
             if (hexTileDict.ContainsKey(hexCoordinates + direction))
             {
-                hexTileNeighoursDict[hexCoordinates].Add(hexCoordinates + direction);
-            } 
+                hexTileNeighboursDict[hexCoordinates].Add(hexCoordinates + direction);
+            }
         }
-        return hexTileNeighoursDict[hexCoordinates];       
+        return hexTileNeighboursDict[hexCoordinates];
+    }
+
+    public Vector3Int GetNearestTilePosition(Vector3 worldPosition)
+    {
+        Vector3Int nearestTilePosition = Vector3Int.zero;
+        float nearestDistance = float.MaxValue;
+
+        foreach (var hexTile in hexTileDict.Values)
+        {
+            Vector3 tileWorldPosition = hexTile.transform.position;
+            float distance = Vector3.Distance(worldPosition, tileWorldPosition);
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestTilePosition = hexTile.HexCoords;
+            }
+        }
+
+        return nearestTilePosition;
+    }
+
+    public Vector3 GetTileCenter(Vector3Int hexCoordinates)
+    {
+        if (hexTileDict.TryGetValue(hexCoordinates, out Hex hexTile))
+        {
+            return hexTile.transform.position;
+        }
+        return Vector3.zero;
     }
     
 

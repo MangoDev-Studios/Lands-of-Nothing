@@ -12,8 +12,11 @@ public class PlayerOrderManager : MonoBehaviour
 
     private PlayerRoll[] playerRolls = new PlayerRoll[4];
     private bool playerOrderDetermined = false;
+    private bool firstRound = true; // New flag to indicate the first round
     private int[] playerOrder;
     private int currentTurnCount = 0;
+    private int currentTurn;
+    private int currentPlayerIndex = 0;
 
     private Dictionary<int, GameObject> playerDictionary = new Dictionary<int, GameObject>();
 
@@ -33,20 +36,22 @@ public class PlayerOrderManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Player " + playerId + " accumulated roll: " + playerRolls[playerId].rollValue);
+            currentTurn = GetCurrentPlayerTurn();
 
-            // Increment the turn count
-            currentTurnCount++;
-
+            playerRolls[currentTurn].rollValue += rollResult;
             int turnsToMove = rollResult;
-            Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
+            Debug.Log("Player " + currentTurn + " has " + turnsToMove + " turns to move.");
         }
     }
+
+
 
     private void DetermineStartingOrder()
     {
         if (!playerOrderDetermined)
         {
+            firstRound = false; // First round is completed
+
             currentTurnCount = 1;
 
             Array.Sort(playerRolls, (p1, p2) => p2.rollValue.CompareTo(p1.rollValue));
@@ -88,31 +93,42 @@ public class PlayerOrderManager : MonoBehaviour
         }
     }
 
-
-    public int GetCurrentPlayerTurn()
+    private void HandlePlayerOrder(int playerId, int rollResult)
     {
-        if (playerOrderDetermined && playerOrder.Length > 0)
-        {
-            int currentPlayerId = playerOrder[0];
+        // Handle the player order following the defined order
+        currentTurnCount++;
 
-            if (playerDictionary.TryGetValue(currentPlayerId, out GameObject currentPlayerObject))
-            {
-                return currentPlayerObject.GetComponent<PlayerController>().PlayerID;
-            }
-        }
-
-        return -1;
+        int turnsToMove = rollResult;
+        Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
     }
 
-    public int GetPlayerTurns(int playerId)
+
+    public int GetCurrentPlayerTurn()
+{
+    if (playerOrderDetermined && playerOrder.Length > 0)
     {
-        if (playerOrderDetermined)
+        int currentPlayerId = playerOrder[currentPlayerIndex];
+
+        if (playerDictionary.TryGetValue(currentPlayerId, out GameObject currentPlayerObject))
         {
-            int index = Array.IndexOf(playerOrder, playerId);
-            return index + 1;
+            return currentPlayerObject.GetComponent<PlayerController>().PlayerID;
         }
 
-        return -1;
+        // Increment the index for the next turn
+        currentPlayerIndex = (currentPlayerIndex + 1) % playerOrder.Length;
+    }
+
+    return -1;
+}
+
+    public int[] GetPlayerOrder()
+    {
+        return playerOrder;
+    }
+
+    public bool IsPlayerOrderDetermined()
+    {
+        return playerOrderDetermined;
     }
 
 }
