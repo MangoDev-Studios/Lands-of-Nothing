@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 87542346}
   - component: {fileID: 87542347}
   - component: {fileID: 87542348}
+  - component: {fileID: 87542349}
   m_Layer: 0
   m_Name: Character_2
   m_TagString: Player
@@ -220,6 +221,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &87542349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87542345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &338267653
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +604,7 @@ GameObject:
   - component: {fileID: 689203800}
   - component: {fileID: 689203801}
   - component: {fileID: 689203802}
+  - component: {fileID: 689203803}
   m_Layer: 0
   m_Name: Character_3
   m_TagString: Player
@@ -674,6 +691,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &689203803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689203799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &711196796
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +717,7 @@ GameObject:
   - component: {fileID: 711196798}
   - component: {fileID: 711196797}
   - component: {fileID: 711196799}
+  - component: {fileID: 711196800}
   m_Layer: 0
   m_Name: Character_1
   m_TagString: Player
@@ -771,6 +804,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &711196800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711196796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: 1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &723286283
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +1015,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b81f7c7660d1b8647af0ae54ead19993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentPlayerIndex: 0
+  player: {fileID: 1546052405}
+  waitingForPlayer: 0
 --- !u!4 &1335223130
 Transform:
   m_ObjectHideFlags: 0
@@ -1947,6 +1998,7 @@ GameObject:
   - component: {fileID: 2029784164}
   - component: {fileID: 2029784165}
   - component: {fileID: 2029784166}
+  - component: {fileID: 2029784167}
   m_Layer: 0
   m_Name: Character_4
   m_TagString: Player
@@ -2033,6 +2085,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2029784167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029784163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2074606918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,8 +2132,10 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   selectionMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   hexGrid: {fileID: 1986435121}
+  player: {fileID: 1546052405}
+  playerOrderManager: {fileID: 0}
 --- !u!4 &2074606920
 Transform:
   m_ObjectHideFlags: 0

@@ -23,7 +23,7 @@ public class Dice : MonoBehaviour
 
     private IEnumerator RollTheDice()
     {
-        if (!isRolling)
+        if (!isRolling && !playerOrderManager.IsPlayerOrderDetermined() && !playerOrderManager.waitingForPlayer)
         {
             isRolling = true;
 
@@ -40,18 +40,8 @@ public class Dice : MonoBehaviour
             finalSide = randomDiceSide + 1;
             Debug.Log("Final Dice Value: " + finalSide);
 
-            if (!playerOrderManager.IsPlayerOrderDetermined())
-            {
-                playerOrderManager.RecordDiceRoll(currentPlayerId, finalSide);
-                currentPlayerId = (currentPlayerId + 1) % 4;
-            }
-            else
-            {
-                int currentTurn = playerOrderManager.GetCurrentPlayerTurn();
-                Debug.Log("Current Player Turn: " + currentTurn);
-
-                playerOrderManager.RecordDiceRoll(currentTurn, finalSide);
-            }
+            playerOrderManager.RecordDiceRoll(currentPlayerId, finalSide);
+            currentPlayerId = (currentPlayerId + 1) % 4;
 
             isRolling = false;
         }

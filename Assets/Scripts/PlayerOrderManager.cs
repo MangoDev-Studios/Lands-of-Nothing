@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerOrderManager : MonoBehaviour
 {
@@ -16,8 +17,10 @@ public class PlayerOrderManager : MonoBehaviour
     private int[] playerOrder;
     private int currentTurnCount = 0;
     private int currentTurn;
-    public int currentPlayerIndex = 0;
-    public GameObject player; 
+    public int currentPlayerIndex = 999;
+    public GameObject player;
+    private int remainingMoves = 0;
+    public bool waitingForPlayer = false;
 
 
     public Dictionary<int, GameObject> playerDictionary = new Dictionary<int, GameObject>();
@@ -26,19 +29,19 @@ public class PlayerOrderManager : MonoBehaviour
     {
         if (currentPlayerIndex == 0)
         {
-            this.player = GameObject.FindWithTag("Character_1");
+            this.player = GameObject.Find("Character_1");
         }
         else if (currentPlayerIndex == 1)
         {
-            this.player = GameObject.FindWithTag("Character_2");
+            this.player = GameObject.Find("Character_2");
         }
         else if (currentPlayerIndex == 2)
         {
-            this.player = GameObject.FindWithTag("Character_3");
+            this.player = GameObject.Find("Character_3");
         }
         else if (currentPlayerIndex == 3)
         {
-            this.player = GameObject.FindWithTag("Character_4");
+            this.player = GameObject.Find("Character_4");
         }
     }
 
@@ -113,11 +116,14 @@ public class PlayerOrderManager : MonoBehaviour
 
     private void HandlePlayerOrder(int playerId, int rollResult)
     {
-        // Handle the player order following the defined order
         currentTurnCount++;
 
         int turnsToMove = rollResult;
+        remainingMoves = turnsToMove;
+
         Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
+
+        StartCoroutine(WaitForPlayerMoves());
     }
 
 
@@ -127,20 +133,44 @@ public class PlayerOrderManager : MonoBehaviour
         {
             Debug.Log("CurrentPlayer" + currentPlayerIndex);
             Debug.Log("Array " + playerOrder[currentPlayerIndex]);
-            int currentPlayerId = playerOrder[currentPlayerIndex];
 
-            // call on end turn
-            currentPlayerIndex += 1;
-        
-            if (playerDictionary.TryGetValue(currentPlayerId, out GameObject currentPlayerObject))
+            if (currentPlayerIndex < playerOrder.Length)
             {
+                int currentPlayerId = playerOrder[currentPlayerIndex];
                 
-                return currentPlayerObject.GetComponent<PlayerController>().PlayerID;
+                if (playerDictionary.TryGetValue(currentPlayerId, out GameObject currentPlayerObject))
+                {
+                    return currentPlayerObject.GetComponent<PlayerController>().PlayerID;
+                }
             }
         }
 
-        return 999;
+        return -1;
     }
+
+    public IEnumerator WaitForPlayerMoves()
+    {
+        waitingForPlayer = true;
+
+        while (remainingMoves > 0)
+        {
+            yield return null; // Wait for the next frame
+        }
+
+        waitingForPlayer = false;
+        AdvanceToNextPlayer();
+    }
+
+    public void AdvanceToNextPlayer()
+    {
+        currentPlayerIndex += 1;
+    }
+
+    public void PlayerMoveCompleted()
+    {
+        remainingMoves--;
+    }
+
 
     public int[] GetPlayerOrder()
     {
