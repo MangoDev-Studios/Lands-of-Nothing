@@ -17,32 +17,37 @@ public class PlayerOrderManager : MonoBehaviour
     private int[] playerOrder;
     private int currentTurnCount = 0;
     private int currentTurn;
-    public int currentPlayerIndex = 999;
+    public int currentPlayerIndex = 0;
+    public GameObject dice;
     public GameObject player;
-    private int remainingMoves = 0;
+    public int remainingMoves = 0;
     public bool waitingForPlayer = false;
+    public int currentPlayerId;
+     private PlayerController playerController;
 
 
     public Dictionary<int, GameObject> playerDictionary = new Dictionary<int, GameObject>();
 
     void Update()
     {
-        if (currentPlayerIndex == 0)
+        if (currentPlayerId == 0)
         {
             this.player = GameObject.Find("Character_1");
         }
-        else if (currentPlayerIndex == 1)
+        else if (currentPlayerId == 1)
         {
             this.player = GameObject.Find("Character_2");
         }
-        else if (currentPlayerIndex == 2)
+        else if (currentPlayerId == 2)
         {
             this.player = GameObject.Find("Character_3");
         }
-        else if (currentPlayerIndex == 3)
+        else if (currentPlayerId == 3)
         {
             this.player = GameObject.Find("Character_4");
         }
+
+        //this.dice = GameObject.FindGameObjectWithTag("Dice");
     }
 
     public void RecordDiceRoll(int playerId, int rollResult)
@@ -114,7 +119,7 @@ public class PlayerOrderManager : MonoBehaviour
         }
     }
 
-    private void HandlePlayerOrder(int playerId, int rollResult)
+   private void HandlePlayerOrder(int playerId, int rollResult)
     {
         currentTurnCount++;
 
@@ -136,41 +141,47 @@ public class PlayerOrderManager : MonoBehaviour
 
             if (currentPlayerIndex < playerOrder.Length)
             {
-                int currentPlayerId = playerOrder[currentPlayerIndex];
-                
+                currentPlayerId = playerOrder[currentPlayerIndex];
+
+                Debug.Log("PlayerOrder[currentPlayerIndex] " + currentPlayerIndex);
+
                 if (playerDictionary.TryGetValue(currentPlayerId, out GameObject currentPlayerObject))
                 {
+                    Debug.Log("CurrentPlayerObject " + currentPlayerObject.GetComponent<PlayerController>().PlayerID);
                     return currentPlayerObject.GetComponent<PlayerController>().PlayerID;
                 }
             }
         }
-
         return -1;
     }
 
-    public IEnumerator WaitForPlayerMoves()
+   public IEnumerator WaitForPlayerMoves()
     {
         waitingForPlayer = true;
 
         while (remainingMoves > 0)
         {
-            yield return null; // Wait for the next frame
+            dice.SetActive(false);  // Disable the dice GameObject
+            playerController.CheckBlock();
+            yield return null; // Aguarda o próximo frame
         }
 
         waitingForPlayer = false;
+        dice.SetActive(true);  // Enable the dice GameObject
         AdvanceToNextPlayer();
     }
 
     public void AdvanceToNextPlayer()
     {
         currentPlayerIndex += 1;
+        currentPlayerId = GetCurrentPlayerTurn();
+        remainingMoves = 0; // Reinicia os movimentos para o próximo jogador
     }
 
     public void PlayerMoveCompleted()
     {
         remainingMoves--;
     }
-
 
     public int[] GetPlayerOrder()
     {

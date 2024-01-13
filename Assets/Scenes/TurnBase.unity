@@ -221,6 +221,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movePoint: {fileID: 0}
+  moveSpeed: 5
+  topRight: {fileID: 0}
+  bottomRight: {fileID: 0}
+  bottomLeft: {fileID: 0}
+  topleft: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+  CurrentObject: {fileID: 87542345}
+  Cam: {fileID: 519420031}
+  hexGrid: {fileID: 1986435121}
 --- !u!114 &87542349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +702,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movePoint: {fileID: 0}
+  moveSpeed: 5
+  topRight: {fileID: 0}
+  bottomRight: {fileID: 0}
+  bottomLeft: {fileID: 0}
+  topleft: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+  CurrentObject: {fileID: 689203799}
+  Cam: {fileID: 519420031}
+  hexGrid: {fileID: 1986435121}
 --- !u!114 &689203803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,6 +826,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movePoint: {fileID: 0}
+  moveSpeed: 5
+  topRight: {fileID: 0}
+  bottomRight: {fileID: 0}
+  bottomLeft: {fileID: 0}
+  topleft: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+  CurrentObject: {fileID: 711196796}
+  Cam: {fileID: 519420031}
+  hexGrid: {fileID: 1986435121}
 --- !u!114 &711196800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1016,8 +1049,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayerIndex: 0
+  dice: {fileID: 1781799159}
   player: {fileID: 1546052405}
+  remainingMoves: 0
   waitingForPlayer: 0
+  currentPlayerId: 0
 --- !u!4 &1335223130
 Transform:
   m_ObjectHideFlags: 0
@@ -2085,6 +2121,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bdf68d8ecfb3246ae1faacedecc091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movePoint: {fileID: 0}
+  moveSpeed: 5
+  topRight: {fileID: 0}
+  bottomRight: {fileID: 0}
+  bottomLeft: {fileID: 0}
+  topleft: {fileID: 0}
+  top: {fileID: 0}
+  bottom: {fileID: 0}
+  CurrentObject: {fileID: 2029784163}
+  Cam: {fileID: 519420031}
+  hexGrid: {fileID: 1986435121}
 --- !u!114 &2029784167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,7 +2182,7 @@ MonoBehaviour:
     m_Bits: 0
   hexGrid: {fileID: 1986435121}
   player: {fileID: 1546052405}
-  playerOrderManager: {fileID: 0}
+  playerOrderManager: {fileID: 1335223129}
 --- !u!4 &2074606920
 Transform:
   m_ObjectHideFlags: 0

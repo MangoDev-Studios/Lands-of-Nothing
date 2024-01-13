@@ -11,9 +11,8 @@ public class PlayerManager : MonoBehaviour
     public PlayerOrderManager playerOrderManager; // Reference to your PlayerOrderManager
     public float moveSpeed = 5f; // Player movement speed
 
-    private void Start()
+     void Start()
     {
-        // Check if player order is determined
         if (playerOrderManager.IsPlayerOrderDetermined())
         {
             int[] playerOrder = playerOrderManager.GetPlayerOrder();
@@ -25,13 +24,11 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void Update()
+     void Update()
     {
-        // Check if the player still has moves and is not moving
-        if (remainingMoves > 0 && !isMoving)
+        if (remainingMoves == 0 && !isMoving)
         {
-            // Simulate player movement
-            StartCoroutine(MovePlayer());
+            StartCoroutine(MoveToNextPlayer());
         }
     }
 
@@ -44,34 +41,37 @@ public class PlayerManager : MonoBehaviour
         currentPlayerIndex = playerOrderManager.GetCurrentPlayerTurn() - 1;
     }
 
-    private IEnumerator MovePlayer()
+    IEnumerator MoveToNextPlayer()
     {
         isMoving = true;
 
-        while (remainingMoves > 0)
-        {
-            // Get the next position for the player
-            Vector3Int nextPosition = hexGrid.GetNearestTilePosition(transform.position);
+        // Aguarda um curto período de tempo antes de mudar para o próximo jogador
+        yield return new WaitForSeconds(1f);
 
-            // Move the player to the next position
-            yield return StartCoroutine(MoveToPosition(nextPosition));
+        playerOrderManager.AdvanceToNextPlayer();
 
-            // Wait until the player reaches the next position
-            yield return new WaitForSeconds(1f / moveSpeed);
+        // Obtém o próximo jogador
+        currentPlayerIndex = playerOrderManager.GetCurrentPlayerTurn() - 1;
 
-            // Update the remaining moves
-            remainingMoves--;
-        }
+        // Move o jogador atual para a posição inicial (pode ser ajustado conforme necessário)
+        transform.position = hexGrid.GetTileCenter(Vector3Int.zero);
 
         isMoving = false;
     }
 
-    private IEnumerator MoveToPosition(Vector3Int targetPosition)
+    IEnumerator MovePlayer()
     {
-        // Logic for player movement to the next position
-        // Implement as needed for your game
+        while (remainingMoves > 0)
+        {
+            Vector3Int nextPosition = hexGrid.GetNearestTilePosition(transform.position);
+            yield return StartCoroutine(MoveToPosition(nextPosition));
+            yield return new WaitForSeconds(1f / moveSpeed);
+            remainingMoves--;
+        }
+    }
 
-        // Example 2D movement:
+    IEnumerator MoveToPosition(Vector3Int targetPosition)
+    {
         Vector3 targetPosition3D = hexGrid.GetTileCenter(targetPosition);
         while (Vector3.Distance(transform.position, targetPosition3D) > 0.1f)
         {
