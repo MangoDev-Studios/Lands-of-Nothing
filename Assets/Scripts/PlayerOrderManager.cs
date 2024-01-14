@@ -28,6 +28,11 @@ public class PlayerOrderManager : MonoBehaviour
 
     public Dictionary<int, GameObject> playerDictionary = new Dictionary<int, GameObject>();
 
+    private void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+    }
+
     void Update()
     {
         if (currentPlayerId == 0)
@@ -72,6 +77,7 @@ public class PlayerOrderManager : MonoBehaviour
         }
     }
 
+
     private void DetermineStartingOrder()
     {
         if (!playerOrderDetermined)
@@ -88,19 +94,31 @@ public class PlayerOrderManager : MonoBehaviour
 
             playerOrderDetermined = true;
 
+            // Find all player GameObjects with the "Player" tag
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+            // Sort the players array based on the order of player IDs in playerOrder array
+            Array.Sort(players, (go1, go2) =>
+            {
+                string name1 = go1.name;
+                string name2 = go2.name;
+                return name1.CompareTo(name2);
+            });
+
+            // Create a dictionary to map player IDs to their corresponding GameObjects
+            Dictionary<int, GameObject> playerDictionaryTemp = new Dictionary<int, GameObject>();
 
             for (int i = 0; i < players.Length; i++)
             {
                 PlayerController playerController = players[i].GetComponent<PlayerController>();
                 if (playerController != null)
                 {
-                    int playerId = i;
+                    int playerId = i; // Assign player ID based on the sorted order
                     playerController.PlayerID = playerId;
 
-                    if (!playerDictionary.ContainsKey(playerId))
+                    if (!playerDictionaryTemp.ContainsKey(playerId))
                     {
-                        playerDictionary.Add(playerId, players[i]);
+                        playerDictionaryTemp.Add(playerId, players[i]);
                     }
                     else
                     {
@@ -112,6 +130,9 @@ public class PlayerOrderManager : MonoBehaviour
                     Debug.LogError("PlayerController not found on GameObject with tag 'Player'.");
                 }
             }
+
+            // Assign the sorted dictionary to playerDictionary
+            playerDictionary = playerDictionaryTemp;
         }
         else
         {
@@ -119,31 +140,48 @@ public class PlayerOrderManager : MonoBehaviour
         }
     }
 
-   private void HandlePlayerOrder(int playerId, int rollResult)
+    private void HandlePlayerOrder(int playerId, int rollResult)
     {
         currentTurnCount++;
 
         int turnsToMove = rollResult;
         remainingMoves = turnsToMove;
 
-        Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
+        if (playerDictionary.TryGetValue(playerId, out GameObject currentPlayerObject))
+        {
+            playerController = currentPlayerObject.GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.PlayerID = playerId;
 
-        StartCoroutine(WaitForPlayerMoves());
+                Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
+
+                StartCoroutine(WaitForPlayerMoves());
+            }
+            else
+            {
+                Debug.LogError("PlayerController not found on GameObject with PlayerID: " + playerId);
+            }
+        }
+        else
+        {
+            Debug.LogError("PlayerID not found in the playerDictionary: " + playerId);
+        }
     }
+
 
 
     public int GetCurrentPlayerTurn()
     {
         if (playerOrderDetermined && playerOrder.Length > 0)
         {
-            Debug.Log("CurrentPlayer" + currentPlayerIndex);
-            Debug.Log("Array " + playerOrder[currentPlayerIndex]);
+            Debug.Log("CurrentPlayer -> " + currentPlayerIndex);
 
             if (currentPlayerIndex < playerOrder.Length)
             {
                 currentPlayerId = playerOrder[currentPlayerIndex];
 
-                Debug.Log("PlayerOrder[currentPlayerIndex] " + currentPlayerIndex);
+                Debug.Log("Current Player Id -> " + currentPlayerId);
 
                 if (playerDictionary.TryGetValue(currentPlayerId, out GameObject currentPlayerObject))
                 {
@@ -159,12 +197,13 @@ public class PlayerOrderManager : MonoBehaviour
     {
         waitingForPlayer = true;
 
+        dice.SetActive(false);
+
         while (remainingMoves > 0)
         {
-            dice.SetActive(false);  // Disable the dice GameObject
-            playerController.CheckBlock();
             yield return null; // Aguarda o próximo frame
         }
+
 
         waitingForPlayer = false;
         dice.SetActive(true);  // Enable the dice GameObject
