@@ -46,6 +46,7 @@ public class PlayerOrderManager : MonoBehaviour
         {
             this.player = GameObject.Find("Character_4");
         }
+        this.playerController = player.GetComponent<PlayerController>();
 
         //this.dice = GameObject.FindGameObjectWithTag("Dice");
     }
@@ -156,26 +157,39 @@ public class PlayerOrderManager : MonoBehaviour
     }
 
    public IEnumerator WaitForPlayerMoves()
-    {
-        waitingForPlayer = true;
+{
+    waitingForPlayer = true;
 
-        while (remainingMoves > 0)
+    while (remainingMoves > 0)
+    {
+        dice.SetActive(false);  // Disable the dice GameObject
+
+        // Check if playerController is not null before using it
+        if (playerController != null)
         {
-            dice.SetActive(false);  // Disable the dice GameObject
             playerController.CheckBlock();
-            yield return null; // Aguarda o próximo frame
+        }
+        else
+        {
+            Debug.LogError("PlayerController is null. Make sure it is assigned.");
         }
 
-        waitingForPlayer = false;
-        dice.SetActive(true);  // Enable the dice GameObject
-        AdvanceToNextPlayer();
+        yield return null; // Wait for the next frame
     }
+
+    waitingForPlayer = false;
+    dice.SetActive(true);  // Enable the dice GameObject
+    AdvanceToNextPlayer();
+}
 
     public void AdvanceToNextPlayer()
     {
         currentPlayerIndex += 1;
+        if(currentPlayerIndex == 4)
+            currentPlayerIndex = 0;
         currentPlayerId = GetCurrentPlayerTurn();
         remainingMoves = 0; // Reinicia os movimentos para o próximo jogador
+         this.playerController = player.GetComponent<PlayerController>();
     }
 
     public void PlayerMoveCompleted()

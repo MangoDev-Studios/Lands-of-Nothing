@@ -23,24 +23,26 @@ public class HexGrid : MonoBehaviour
     }
 
     public List<Vector3Int> GetNeighboursFor(Vector3Int hexCoordinates)
+{
+    if (hexTileNeighboursDict.TryGetValue(hexCoordinates, out List<Vector3Int> cachedNeighbours))
     {
-        if (hexTileDict.ContainsKey(hexCoordinates) == false)
-            return new List<Vector3Int>();
-
-        if (hexTileNeighboursDict.ContainsKey(hexCoordinates))
-            return hexTileNeighboursDict[hexCoordinates];
-
-        hexTileNeighboursDict.Add(hexCoordinates, new List<Vector3Int>());
-
-        foreach (Vector3Int direction in Direction.GetDirectionList(hexCoordinates.y))
-        {
-            if (hexTileDict.ContainsKey(hexCoordinates + direction))
-            {
-                hexTileNeighboursDict[hexCoordinates].Add(hexCoordinates + direction);
-            }
-        }
-        return hexTileNeighboursDict[hexCoordinates];
+        return cachedNeighbours;
     }
+
+    List<Vector3Int> neighbours = new List<Vector3Int>();
+
+    foreach (Vector3Int direction in Direction.GetDirectionList(hexCoordinates.y))
+    {
+        Vector3Int neighborCoord = hexCoordinates + direction;
+        if (hexTileDict.ContainsKey(neighborCoord))
+        {
+            neighbours.Add(neighborCoord);
+        }
+    }
+
+    hexTileNeighboursDict[hexCoordinates] = neighbours;
+    return neighbours;
+}
 
     public Vector3Int GetNearestTilePosition(Vector3 worldPosition)
     {
@@ -70,6 +72,16 @@ public class HexGrid : MonoBehaviour
         }
         return Vector3.zero;
     }
+
+    public void UpdateHexagonPosition(Vector3Int hexCoordinates)
+{
+    if (hexTileNeighboursDict.ContainsKey(hexCoordinates))
+    {
+        // Invalidate the cache
+        hexTileNeighboursDict.Remove(hexCoordinates);
+    }
+    // GetNeighboursFor will recalculate and cache the neighbors next time it's called.
+}
     
 
     public static class Direction
