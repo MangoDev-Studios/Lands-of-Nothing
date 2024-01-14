@@ -72,15 +72,17 @@ public class HexesBoard : MonoBehaviour
     }
 
     // Move player to the center of the specified hex
-    void MovePlayerToHex(int hexIndex)
-    {
+void MovePlayerToHex(int hexIndex)
+{
+    // Get the corresponding hex GameObject based on the index
+    GameObject targetHex = GetHexGameObject(hexIndex);
 
-        // Get the corresponding hex GameObject based on the index
-        GameObject targetHex = GetHexGameObject(hexIndex);
+    // Maintain the existing Z coordinate of the player
+    Vector3 newPosition = new Vector3(targetHex.transform.position.x, targetHex.transform.position.y, Jogador.transform.position.z);
 
-        // Move the player to the center of the hex
-        Jogador.transform.position = targetHex.transform.position;
-    }
+    // Move the player to the new position
+    Jogador.transform.position = newPosition;
+}
 
     // Get the corresponding hex GameObject based on the index
     GameObject GetHexGameObject(int hexIndex)
