@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerOrderManager : MonoBehaviour
 {
@@ -10,7 +13,10 @@ public class PlayerOrderManager : MonoBehaviour
         public int playerId;
         public int rollValue;
     }
+    public TMP_Text playerTurnText;
+    public TMP_Text currentTurnText;
 
+    public int rolls;
     private PlayerRoll[] playerRolls = new PlayerRoll[4];
     private bool playerOrderDetermined = false;
     private bool firstRound = true; // New flag to indicate the first round
@@ -24,13 +30,16 @@ public class PlayerOrderManager : MonoBehaviour
     public bool waitingForPlayer = false;
     public int currentPlayerId;
      private PlayerController playerController;
-
+   private int rollCounter = 0;
+    private const int rollsPerTurn = 4;
 
     public Dictionary<int, GameObject> playerDictionary = new Dictionary<int, GameObject>();
 
     private void Start()
     {
         playerController = GetComponent<PlayerController>();
+        currentTurnText.text = " ";
+        playerTurnText.text = " ";
     }
 
     void Update()
@@ -58,6 +67,8 @@ public class PlayerOrderManager : MonoBehaviour
 
     public void RecordDiceRoll(int playerId, int rollResult)
     {
+        rolls++;
+
         if (!playerOrderDetermined)
         {
             playerRolls[playerId].playerId = playerId;
@@ -75,6 +86,11 @@ public class PlayerOrderManager : MonoBehaviour
             playerRolls[playerId].rollValue += rollResult;
 
             HandlePlayerOrder(playerId, rollResult);
+        }
+
+        if (rolls % 4 == 0)
+        {
+            currentTurn++;
         }
     }
 
@@ -143,8 +159,6 @@ public class PlayerOrderManager : MonoBehaviour
 
     private void HandlePlayerOrder(int playerId, int rollResult)
     {
-        currentTurnCount++;
-
         int turnsToMove = rollResult;
         remainingMoves = turnsToMove;
 
@@ -155,8 +169,14 @@ public class PlayerOrderManager : MonoBehaviour
             {
                 playerController.PlayerID = playerId;
 
-                Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
+                // Update TextMeshProUGUI elements
+                Debug.Log("Setting Player Turn Text: " + "Player Turn: " + (playerId + 1));
+                playerTurnText.text = "Player Turn: " + (playerId + 1);
+                Debug.Log("Setting Current Turn Text: " + "Current Turn: " + currentTurn);
+                currentTurnText.text = "Current Turn: " + currentTurn;
 
+
+                Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
                 StartCoroutine(WaitForPlayerMoves());
             }
             else
@@ -169,8 +189,6 @@ public class PlayerOrderManager : MonoBehaviour
             Debug.LogError("PlayerID not found in the playerDictionary: " + playerId);
         }
     }
-
-
 
     public int GetCurrentPlayerTurn()
     {
@@ -205,25 +223,20 @@ public class PlayerOrderManager : MonoBehaviour
             yield return null; // Aguarda o próximo frame
         }
 
-
         waitingForPlayer = false;
         dice.SetActive(true);  // Enable the dice GameObject
         AdvanceToNextPlayer();
-    }
 
-    waitingForPlayer = false;
-    dice.SetActive(true);  // Enable the dice GameObject
-    AdvanceToNextPlayer();
 }
 
     public void AdvanceToNextPlayer()
     {
         currentPlayerIndex += 1;
-        if(currentPlayerIndex == 4)
+        if (currentPlayerIndex == 4)
             currentPlayerIndex = 0;
         currentPlayerId = GetCurrentPlayerTurn();
         remainingMoves = 0; // Reinicia os movimentos para o próximo jogador
-         this.playerController = player.GetComponent<PlayerController>();
+        this.playerController = player.GetComponent<PlayerController>();
     }
 
     public void PlayerMoveCompleted()
@@ -240,5 +253,6 @@ public class PlayerOrderManager : MonoBehaviour
     {
         return playerOrderDetermined;
     }
+
 
 }
