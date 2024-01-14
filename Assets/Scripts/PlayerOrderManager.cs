@@ -51,6 +51,7 @@ public class PlayerOrderManager : MonoBehaviour
         {
             this.player = GameObject.Find("Character_4");
         }
+        this.playerController = player.GetComponent<PlayerController>();
 
         //this.dice = GameObject.FindGameObjectWithTag("Dice");
     }
@@ -194,8 +195,8 @@ public class PlayerOrderManager : MonoBehaviour
     }
 
    public IEnumerator WaitForPlayerMoves()
-    {
-        waitingForPlayer = true;
+{
+    waitingForPlayer = true;
 
         dice.SetActive(false);
 
@@ -210,11 +211,19 @@ public class PlayerOrderManager : MonoBehaviour
         AdvanceToNextPlayer();
     }
 
+    waitingForPlayer = false;
+    dice.SetActive(true);  // Enable the dice GameObject
+    AdvanceToNextPlayer();
+}
+
     public void AdvanceToNextPlayer()
     {
         currentPlayerIndex += 1;
+        if(currentPlayerIndex == 4)
+            currentPlayerIndex = 0;
         currentPlayerId = GetCurrentPlayerTurn();
         remainingMoves = 0; // Reinicia os movimentos para o próximo jogador
+         this.playerController = player.GetComponent<PlayerController>();
     }
 
     public void PlayerMoveCompleted()
