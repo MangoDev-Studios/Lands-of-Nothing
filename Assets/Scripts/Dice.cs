@@ -8,9 +8,10 @@ public class Dice : MonoBehaviour
     private PlayerOrderManager playerOrderManager;
     private bool isRolling = false;
     private int currentPlayerId = 0;
-
+    public AudioSource audioData;
     private void Start()
     {
+        audioData = GetComponent<AudioSource>();
         rend = GetComponent<SpriteRenderer>();
         diceSides = Resources.LoadAll<Sprite>("DiceSides/");
         playerOrderManager = FindObjectOfType<PlayerOrderManager>();
@@ -18,13 +19,16 @@ public class Dice : MonoBehaviour
 
     private void OnMouseDown()
     {
+        
         StartCoroutine("RollTheDice");
     }
 
     private IEnumerator RollTheDice()
 {
+    
     if (!isRolling)
     {
+        audioData.Play();
         isRolling = true;
 
         int randomDiceSide = 0;

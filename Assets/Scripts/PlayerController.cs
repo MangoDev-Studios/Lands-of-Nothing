@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 targetPosition;
     public HexGrid hexGrid;
     private PlayerOrderManager playerOrderManager;
+    public AudioSource audioSource;
 
     // PlayerID property with a public set accessor
     public int PlayerID { get; set; }
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
             // Verifica se o hexágono alvo é um vizinho válido
             if (IsNeighbor(targetPosition))
             {
+                audioSource.Play();
                 StartCoroutine(MoveToPosition(targetPosition));
             }
         }
