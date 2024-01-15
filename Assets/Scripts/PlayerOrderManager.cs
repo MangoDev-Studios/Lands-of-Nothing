@@ -14,21 +14,23 @@ public class PlayerOrderManager : MonoBehaviour
         public int playerId;
         public int rollValue;
     }
+    
     public TMP_Text playerTurnText;
     public TMP_Text currentTurnText;
 
     public TMP_Text numActionsText;
-
+    
     public int rolls;
     private PlayerRoll[] playerRolls = new PlayerRoll[4];
     private bool playerOrderDetermined = false;
     private bool firstRound = true; // New flag to indicate the first round
     private int[] playerOrder;
     private int currentTurnCount = 0;
-    private int currentTurn;
+    public int currentTurn;
     public int currentPlayerIndex = 0;
     public GameObject dice;
     public GameObject player;
+    public int[] greensidesCount = new int[4];
     public int remainingMoves = 0;
     public bool waitingForPlayer = false;
     public int currentPlayerId;
@@ -45,12 +47,14 @@ public class PlayerOrderManager : MonoBehaviour
         playerTurnText.text = " ";
     }
 
+
+
     void Update()
     {
         if(currentTurn == 11)
         {
                 SceneManager.LoadScene("GameEnd");
-
+                CheckWinner();
         }
         numActionsText.text = "Moves restantes: " + remainingMoves.ToString();
         if (currentPlayerId == 0)
@@ -267,6 +271,23 @@ public class PlayerOrderManager : MonoBehaviour
     {
         return playerOrderDetermined;
     }
+ 
+            private void CheckWinner()
+        {
+            int maxGreensides = 0;
+            int winnerId = -1;
 
+            for (int i = 0; i < playerRolls.Length; i++)
+            {
+                if (greensidesCount[i] > maxGreensides)
+                {
+                    maxGreensides = greensidesCount[i];
+                    winnerId = playerRolls[i].playerId;
+                }
+            }
 
+            Debug.Log("Player " + winnerId + " is the winner!");
+        }
+
+    
 }

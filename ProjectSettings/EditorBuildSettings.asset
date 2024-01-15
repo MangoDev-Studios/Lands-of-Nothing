@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TurnBase.unity
     guid: 18721c20cf015b441a8a361b8bcdd712
+  - enabled: 1
+    path: Assets/Scenes/GameEnd.unity
+    guid: 3c2bda8bed7625c48b33951010d0d48f
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729

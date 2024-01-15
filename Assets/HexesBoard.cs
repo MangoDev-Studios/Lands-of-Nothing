@@ -20,6 +20,7 @@ public class HexesBoard : MonoBehaviour
     public PlayerController playerController;
     private Dictionary<int, List<int>> validMoves;
     public CardStack cardStack;
+    public int greenSides;
     
     public int currentPosition;
     public int currentPositionInimigo;
@@ -31,6 +32,8 @@ public class HexesBoard : MonoBehaviour
     MovePlayerToHex(0); // Starting position at hex 0
     MoveInimigoToFarthestHex();
     }
+
+    
 
     // Update is called once per frame
      void Update()

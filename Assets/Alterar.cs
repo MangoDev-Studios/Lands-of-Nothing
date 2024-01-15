@@ -33,6 +33,16 @@ public class Alterar : MonoBehaviour
             if (IsMouseOverObject() && playerOrderManager.remainingMoves >= 2)
             {
                 ToggleSprite();
+
+            if (GetComponent<SpriteRenderer>().sprite == originalSprite)
+            {
+                playerOrderManager.greensidesCount[playerOrderManager.currentPlayerId] -= 1;
+            }
+            else
+            {
+                playerOrderManager.greensidesCount[playerOrderManager.currentPlayerId] += 1;
+            }
+
                 playerOrderManager.remainingMoves -= 2;
             }
         }

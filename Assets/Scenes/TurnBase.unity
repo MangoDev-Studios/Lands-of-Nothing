@@ -3738,7 +3738,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jogaodor 4
+  m_text: Jogador 4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3883,6 +3883,7 @@ MonoBehaviour:
   playerOrderManager: {fileID: 1335223129}
   playerController: {fileID: 711196799}
   cardStack: {fileID: 1559984251}
+  greenSides: 0
   currentPosition: 0
   currentPositionInimigo: 0
   diceScript: {fileID: 1781799166}
@@ -4063,6 +4064,7 @@ MonoBehaviour:
   playerOrderManager: {fileID: 1335223129}
   playerController: {fileID: 1562530332}
   cardStack: {fileID: 1559984251}
+  greenSides: 0
   currentPosition: 0
   currentPositionInimigo: 0
   diceScript: {fileID: 1781799166}
@@ -4099,9 +4101,11 @@ MonoBehaviour:
   currentTurnText: {fileID: 552295916}
   numActionsText: {fileID: 21975640}
   rolls: 0
+  currentTurn: 0
   currentPlayerIndex: 0
   dice: {fileID: 1781799159}
   player: {fileID: 1546052405}
+  greensidesCount: 00000000000000000000000000000000
   remainingMoves: 0
   waitingForPlayer: 0
   currentPlayerId: 0
@@ -4198,6 +4202,7 @@ MonoBehaviour:
   playerOrderManager: {fileID: 1335223129}
   playerController: {fileID: 689203802}
   cardStack: {fileID: 1559984251}
+  greenSides: 0
   currentPosition: 0
   currentPositionInimigo: 0
   diceScript: {fileID: 1781799166}
@@ -4765,6 +4770,7 @@ MonoBehaviour:
   playerOrderManager: {fileID: 1335223129}
   playerController: {fileID: 318342013}
   cardStack: {fileID: 1559984251}
+  greenSides: 0
   currentPosition: 0
   currentPositionInimigo: 0
   diceScript: {fileID: 1781799166}
