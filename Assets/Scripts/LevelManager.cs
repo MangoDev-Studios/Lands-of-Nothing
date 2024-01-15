@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
 
     public void changeScene()
     {
+        sceneName = "TurnBase";
         SceneManager.LoadScene(sceneName);
     }
 }

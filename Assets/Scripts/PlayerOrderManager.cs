@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 
 public class PlayerOrderManager : MonoBehaviour
@@ -46,6 +47,11 @@ public class PlayerOrderManager : MonoBehaviour
 
     void Update()
     {
+        if(currentTurn == 11)
+        {
+                SceneManager.LoadScene("GameEnd");
+
+        }
         numActionsText.text = "Moves restantes: " + remainingMoves.ToString();
         if (currentPlayerId == 0)
         {
