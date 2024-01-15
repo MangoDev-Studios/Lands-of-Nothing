@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.AnimatedValues;
 using UnityEngine;
 
 public class HexesBoard : MonoBehaviour
@@ -23,6 +22,7 @@ public class HexesBoard : MonoBehaviour
     public CardStack cardStack;
     
     public int currentPosition;
+    public int currentPositionInimigo;
      public Dice diceScript;
     // Start is called before the first frame update
     void Start()
@@ -76,13 +76,8 @@ public class HexesBoard : MonoBehaviour
             }
         }
 
-    Debug.Log($"Player and e{GetHexIndex(Inimigo)}.");
-    Debug.Log($"Pla{currentPosition}");
-    if (currentPosition == GetHexIndex(Inimigo))
+    if (currentPosition == currentPositionInimigo)
     {
-
-         Debug.Log("Player and enemy are in the same hex. Moving enemy to the farthest hex.");
-        // Move the enemy to the farthest hex
         MoveInimigoToFarthestHex();
         cardStack.DrawCard();
     }
@@ -95,7 +90,7 @@ public class HexesBoard : MonoBehaviour
 
         // Find the farthest hex from the player
         GameObject farthestHex = GetFarthestHex(playerPosition);
-
+        
         // Move the enemy to the farthest hex
         MoveInimigoToHex(GetHexIndex(farthestHex));
     }
@@ -122,7 +117,7 @@ public class HexesBoard : MonoBehaviour
         void MoveInimigoToHex(int hexIndex)
     {
         GameObject targetHex = GetHexGameObject(hexIndex);
-
+        currentPositionInimigo = hexIndex;
         Vector3 newPosition = new Vector3(targetHex.transform.position.x, targetHex.transform.position.y, Inimigo.transform.position.z);
 
         Inimigo.transform.position = newPosition;
@@ -215,6 +210,30 @@ public int GetHexIndex(GameObject hex)
         }
 
         return closestHex;
+    }
+
+        void MoveInimigoTowardsHex(int targetHex)
+    {
+        // Get the target hex GameObject
+        GameObject targetHexObject = GetHexGameObject(targetHex);
+
+        // Move the Inimigo towards the target hex
+        StartCoroutine(MoveInimigo(targetHexObject.transform.position, 2f)); // You can adjust the duration (2f in this case)
+    }
+
+    IEnumerator MoveInimigo(Vector3 targetPosition, float duration)
+    {
+        Vector3 initialPosition = Inimigo.transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            Inimigo.transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Inimigo.transform.position = targetPosition; // Ensure it reaches the exact position
     }
 
     

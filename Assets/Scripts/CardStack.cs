@@ -6,9 +6,11 @@ public class CardStack : MonoBehaviour
 {
     public GameObject cardPrefab;
     public Collider2D stackCollider; // Use Collider2D for 2D colliders
+    public PlayerOrderManager playerOrderManager;
 
     void Start()
     {
+        playerOrderManager = FindObjectOfType<PlayerOrderManager>();
         // Ensure that a collider is assigned to the stackCollider variable
         if (stackCollider == null)
         {
@@ -38,10 +40,152 @@ public class CardStack : MonoBehaviour
         return hit.collider != null && hit.collider == stackCollider;
     }
 
+    public GameObject[] cardPrefabs; // Array to hold your 10 card prefabs
+
     public void DrawCard()
     {
-        // Instantiate a new card
-        GameObject newCard = Instantiate(cardPrefab);
+        if (cardPrefabs == null || cardPrefabs.Length == 0)
+        {
+            Debug.LogError("Card prefabs not set up!");
+            return;
+        }
+
+        // Select a random index from the cardPrefabs array
+        int randomIndex = Random.Range(0, cardPrefabs.Length);
+
+        // Instantiate the selected card prefab
+        GameObject newCard = Instantiate(cardPrefabs[randomIndex]);
+
+        // Check if the drawn card is the 6th element
+        if (randomIndex == 0) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 4;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 1) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 4;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 2) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 4;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 3) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 16;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 4) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 18;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 5) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 4;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 6) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 4;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 7) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 4;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 8) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 6;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
+           // Check if the drawn card is the 6th element
+        if (randomIndex == 9) // Adjust the index based on zero-indexing
+        {
+            // Increase remainingMoves by 2
+            if (playerOrderManager != null)
+            {
+                playerOrderManager.remainingMoves += 8;
+            }
+            else
+            {
+                Debug.LogError("PlayerOrderManager reference not set up!");
+            }
+        }
 
         // Set the card position to the center of the main camera's view
         Camera mainCamera = Camera.main;
