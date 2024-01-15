@@ -219,6 +219,3 @@ public int GetHexIndex(GameObject hex)
 
     
 }
-
-
-
