@@ -25,6 +25,7 @@ public class PlayerOrderManager : MonoBehaviour
     private bool playerOrderDetermined = false;
     private bool firstRound = true; // New flag to indicate the first round
     private int[] playerOrder;
+    int winnerId = -1;
     private int currentTurnCount = 0;
     public int currentTurn;
     public int currentPlayerIndex = 0;
@@ -47,13 +48,14 @@ public class PlayerOrderManager : MonoBehaviour
         playerTurnText.text = " ";
     }
 
-
+    
 
     void Update()
     {
         if(currentTurn == 11)
         {
                 SceneManager.LoadScene("GameEnd");
+
                 CheckWinner();
         }
         numActionsText.text = "Moves restantes: " + remainingMoves.ToString();
@@ -275,7 +277,7 @@ public class PlayerOrderManager : MonoBehaviour
             private void CheckWinner()
         {
             int maxGreensides = 0;
-            int winnerId = -1;
+            
 
             for (int i = 0; i < playerRolls.Length; i++)
             {
@@ -285,6 +287,8 @@ public class PlayerOrderManager : MonoBehaviour
                     winnerId = playerRolls[i].playerId;
                 }
             }
+                PlayerPrefs.SetInt("win", winnerId);
+                PlayerPrefs.Save();
 
             Debug.Log("Player " + winnerId + " is the winner!");
         }
