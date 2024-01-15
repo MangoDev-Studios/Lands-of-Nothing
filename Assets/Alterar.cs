@@ -1,13 +1,16 @@
 using UnityEngine;
+using TMPro;
 
 public class Alterar : MonoBehaviour
 {
     public Sprite newSprite; // Assign the new sprite in the Unity editor
     public GameObject hex;
     private Sprite originalSprite; // To store the original sprite
-
+    public TMP_Text texto;
+    public PlayerOrderManager playerOrderManager;
     private void Start()
     {
+        playerOrderManager = FindObjectOfType<PlayerOrderManager>();
         // Get the original sprite at the start
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
@@ -21,19 +24,22 @@ public class Alterar : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+
         // Check for mouse click
-        if (Input.GetMouseButtonDown(0)) // Change to Input.GetButtonDown("Fire1") for cross-platform input
+        if (Input.GetMouseButtonDown(1)) // Change to Input.GetButtonDown("Fire1") for cross-platform input
         {
             // Check if the mouse is over the object
-            if (IsMouseOverObject())
+            if (IsMouseOverObject() && playerOrderManager.remainingMoves >= 2)
             {
                 ToggleSprite();
+                playerOrderManager.remainingMoves -= 2;
             }
         }
     }
 
-    private void ToggleSprite()
+    
+    public void ToggleSprite()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 

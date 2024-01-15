@@ -9,6 +9,8 @@ public class Dice : MonoBehaviour
     private bool isRolling = false;
     private int currentPlayerId = 0;
     public AudioSource audioData;
+
+ 
     private void Start()
     {
         audioData = GetComponent<AudioSource>();
@@ -19,7 +21,7 @@ public class Dice : MonoBehaviour
 
     private void OnMouseDown()
     {
-        
+        if(playerOrderManager.waitingForPlayer == false)
         StartCoroutine("RollTheDice");
     }
 

@@ -5,7 +5,8 @@ using UnityEditor.AnimatedValues;
 using UnityEngine;
 
 public class HexesBoard : MonoBehaviour
-{
+{   
+    public GameObject Inimigo;
     public GameObject Hex0;
     public GameObject Hex1;
     public GameObject Hex2;
@@ -19,13 +20,16 @@ public class HexesBoard : MonoBehaviour
     public PlayerOrderManager playerOrderManager;
     public PlayerController playerController;
     private Dictionary<int, List<int>> validMoves;
+    public CardStack cardStack;
     
+    public int currentPosition;
      public Dice diceScript;
     // Start is called before the first frame update
     void Start()
     {
     InitializeValidMoves();
     MovePlayerToHex(0); // Starting position at hex 0
+    MoveInimigoToFarthestHex();
     }
 
     // Update is called once per frame
@@ -40,10 +44,9 @@ public class HexesBoard : MonoBehaviour
             int currentPlayerId = playerOrderManager.GetCurrentPlayerTurn();
             PlayerController jogadorController = Jogador.GetComponent<PlayerController>();
 
-
             Debug.Log("Current Player ID: " + jogadorController.PlayerID);
             Debug.Log("Current Player ID: " + currentPlayerId);
-            
+
             if (currentPlayerId == jogadorController.PlayerID)
             {
                 // Cast a ray from the mouse position
@@ -62,6 +65,9 @@ public class HexesBoard : MonoBehaviour
                     {
                         // Move the player to the clicked hex
                         MovePlayerToHex(hexIndex);
+                        currentPosition = GetHexIndex(clickedHex);
+
+
 
                         // Notify PlayerOrderManager that the move is completed
                         playerOrderManager.PlayerMoveCompleted();
@@ -69,8 +75,58 @@ public class HexesBoard : MonoBehaviour
                 }
             }
         }
+
+    Debug.Log($"Player and e{GetHexIndex(Inimigo)}.");
+    Debug.Log($"Pla{currentPosition}");
+    if (currentPosition == GetHexIndex(Inimigo))
+    {
+
+         Debug.Log("Player and enemy are in the same hex. Moving enemy to the farthest hex.");
+        // Move the enemy to the farthest hex
+        MoveInimigoToFarthestHex();
+        cardStack.DrawCard();
+    }
     }
 
+  void MoveInimigoToFarthestHex()
+    {
+        // Get the current player position
+        Vector3 playerPosition = Jogador.transform.position;
+
+        // Find the farthest hex from the player
+        GameObject farthestHex = GetFarthestHex(playerPosition);
+
+        // Move the enemy to the farthest hex
+        MoveInimigoToHex(GetHexIndex(farthestHex));
+    }
+
+        public GameObject GetFarthestHex(Vector3 position)
+    {
+        GameObject[] hexes = { Hex0, Hex1, Hex2, Hex3, Hex4, Hex5, Hex6, Hex7, Hex8 };
+        GameObject farthestHex = hexes[0];
+        float farthestDistance = Vector3.Distance(position, hexes[0].transform.position);
+
+        foreach (GameObject hex in hexes)
+        {
+            float distance = Vector3.Distance(position, hex.transform.position);
+            if (distance > farthestDistance)
+            {
+                farthestDistance = distance;
+                farthestHex = hex;
+            }
+        }
+
+        return farthestHex;
+    }
+
+        void MoveInimigoToHex(int hexIndex)
+    {
+        GameObject targetHex = GetHexGameObject(hexIndex);
+
+        Vector3 newPosition = new Vector3(targetHex.transform.position.x, targetHex.transform.position.y, Inimigo.transform.position.z);
+
+        Inimigo.transform.position = newPosition;
+    }
     // Move player to the center of the specified hex
 void MovePlayerToHex(int hexIndex)
 {
@@ -103,20 +159,21 @@ void MovePlayerToHex(int hexIndex)
     }
 
     // Get the index of the hex GameObject
-    int GetHexIndex(GameObject hex)
-    {
-        if (hex == Hex0) return 0;
-        if (hex == Hex1) return 1;
-        if (hex == Hex2) return 2;
-        if (hex == Hex3) return 3;
-        if (hex == Hex4) return 4;
-        if (hex == Hex5) return 5;
-        if (hex == Hex6) return 6;
-        if (hex == Hex7) return 7;
-        if (hex == Hex8) return 8;
+public int GetHexIndex(GameObject hex)
+{
+    if (hex == null) return -1;
 
-        return -1; // Handle invalid hex
+    for (int i = 0; i < 9; i++)
+    {
+        if (hex.transform.position == GetHexGameObject(i).transform.position)
+        {
+            return i;
+        }
     }
+
+    return -1; // Handle invalid hex
+}
+
 
     // Initialize the valid moves for each hex
     void InitializeValidMoves()
@@ -141,7 +198,7 @@ void MovePlayerToHex(int hexIndex)
     }
 
     // Get the closest hex to a position
-    GameObject GetClosestHex(Vector3 position)
+    public GameObject GetClosestHex(Vector3 position)
     {
         GameObject[] hexes = { Hex0, Hex1, Hex2, Hex3, Hex4, Hex5, Hex6, Hex7, Hex8 };
         GameObject closestHex = hexes[0];
@@ -159,6 +216,8 @@ void MovePlayerToHex(int hexIndex)
 
         return closestHex;
     }
+
+    
 }
 
 

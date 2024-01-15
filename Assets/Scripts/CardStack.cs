@@ -38,7 +38,7 @@ public class CardStack : MonoBehaviour
         return hit.collider != null && hit.collider == stackCollider;
     }
 
-    void DrawCard()
+    public void DrawCard()
     {
         // Instantiate a new card
         GameObject newCard = Instantiate(cardPrefab);

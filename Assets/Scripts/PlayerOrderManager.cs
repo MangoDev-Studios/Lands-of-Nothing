@@ -16,6 +16,8 @@ public class PlayerOrderManager : MonoBehaviour
     public TMP_Text playerTurnText;
     public TMP_Text currentTurnText;
 
+    public TMP_Text numActionsText;
+
     public int rolls;
     private PlayerRoll[] playerRolls = new PlayerRoll[4];
     private bool playerOrderDetermined = false;
@@ -44,6 +46,7 @@ public class PlayerOrderManager : MonoBehaviour
 
     void Update()
     {
+        numActionsText.text = "Moves restantes: " + remainingMoves.ToString();
         if (currentPlayerId == 0)
         {
             this.player = GameObject.Find("Character_1");
@@ -171,9 +174,9 @@ public class PlayerOrderManager : MonoBehaviour
 
                 // Update TextMeshProUGUI elements
                 Debug.Log("Setting Player Turn Text: " + "Player Turn: " + (playerId + 1));
-                playerTurnText.text = "Player Turn: " + (playerId + 1);
+                playerTurnText.text = "Vez do jogador:  " + (playerId + 1);
                 Debug.Log("Setting Current Turn Text: " + "Current Turn: " + currentTurn);
-                currentTurnText.text = "Current Turn: " + currentTurn;
+                currentTurnText.text = "Turno atual: " + currentTurn;
 
 
                 Debug.Log("Player " + playerId + " has " + turnsToMove + " turns to move.");
@@ -214,17 +217,17 @@ public class PlayerOrderManager : MonoBehaviour
 
    public IEnumerator WaitForPlayerMoves()
 {
-    waitingForPlayer = true;
+        waitingForPlayer = true;
 
-        dice.SetActive(false);
+ 
 
         while (remainingMoves > 0)
         {
             yield return null; // Aguarda o próximo frame
         }
-
         waitingForPlayer = false;
-        dice.SetActive(true);  // Enable the dice GameObject
+        playerTurnText.text = " ";
+        currentTurnText.text = "Role o dado";
         AdvanceToNextPlayer();
 
 }
@@ -242,6 +245,11 @@ public class PlayerOrderManager : MonoBehaviour
     public void PlayerMoveCompleted()
     {
         remainingMoves--;
+    }
+
+    public void HexHealed()
+    {
+        remainingMoves -= 2;
     }
 
     public int[] GetPlayerOrder()
